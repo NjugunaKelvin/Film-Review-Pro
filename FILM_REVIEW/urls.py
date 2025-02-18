@@ -14,6 +14,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+# images 
+from django.conf.urls.static import static
+from . import settings
+
+
 from django.contrib import admin
 from django.urls import path
 from movies import views as movieViews
@@ -24,3 +29,5 @@ urlpatterns = [
     path('about/',movieViews.about),
     path('signup/',movieViews.signup, name='signup')
 ]
+
+urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
