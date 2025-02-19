@@ -6,3 +6,7 @@ class News(models.Model):
     body = models.TextField()
     date = models.DateField()
     image = models.ImageField(upload_to='news/images/', null=True, blank=True)
+
+    # better name in admin site
+    def __str__(self):
+        return self.headline
