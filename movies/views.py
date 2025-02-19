@@ -16,7 +16,7 @@ def home(request):
 def about(request):
     return HttpResponse('<h1>About Page<h1>')
 
-def details(request):
+def detail(request, movie_id):
     movie = get_object_or_404(Movie,pk=movie_id)
     return render(request, 'detail.html',
         {'movie' : movie })

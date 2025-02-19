@@ -1,22 +1,23 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
 
+{% block content %}
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div v-for="movie in movies" class="col">
+                    <div class="card">
+                        <img src="{{ movie.image.url }}" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">{{ movie.title}}</h5>
+                            <p class="card-text">{{ movie.description }}</p>
+                            {% if movie.url %}
+                                <a href="{{ movie.url }}" class="btn btn-primary">Movie Link</a>
+                            {% endif %}
 
+                        </div>
+                    </div>
 
-{% block content%}
-
-    <div class="card mb-3">
-        <img src="{{ movie.image.url }}" alt="">
-    </div>
-    <div class="col-md-8">
-        <div class="card-body">
-            <h5 class="card-title">{{ movie.title}}</h5>
-            <p class="card-text">{{ movie.description }}</p>
-            <p class="card-text">
-                {% if movie.url %}
-                    <a class="btn btn-promary" href="{{ movie.url }}">Movie Link</a>
-                {% endif %}
-            </p>
+                </div>
         </div>
-    </div>
 
-{% endblock content%}
+
+{% endblock content %}
+
