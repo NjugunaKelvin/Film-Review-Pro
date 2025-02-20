@@ -5,3 +5,6 @@ class Movie(models.Model):
     description = models.TextField()
     image = models.ImageField(upload_to='movies/images/')
     url = models.URLField(blank=True)
+
+    def __str__(self):
+        return self.title
