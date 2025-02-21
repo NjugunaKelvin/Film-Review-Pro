@@ -18,8 +18,9 @@ def about(request):
 
 def detail(request, movie_id):
     movie = get_object_or_404(Movie,pk=movie_id)
+    reviews = Review.objects.filter(movie = movie)
     return render(request, 'detail.html',
-        {'movie' : movie })
+        {'movie' : movie, 'review' : reviews})
 
 def createReview(request, movie_id):
     movie = get_object_or_404(Movie,pk=movie_id)
@@ -33,6 +34,6 @@ def createReview(request, movie_id):
             newReview.user = request.user
             newReview.movie = movie
             newReview.save()
-            return redirect('details', newReview.movie.id)
+            return redirect('detail', newReview.movie.id)
         except ValueError:
             return render(request, 'createReview.html', {'form' : ReviewForm(), 'error' : 'Bad data Passed in'})

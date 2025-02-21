@@ -16,6 +16,24 @@
                                 <a href="{% url 'createReview' movie.id %}" class="btn btn-primary">Add Review</a>
                              {% endif %}
 
+                             <hr>
+                             <h3>Reviews</h3>
+                             <ul class="list-group">
+                                {% for review in reviews %}
+                                    <li class="list-group-item pb-3 pt-3">
+                                        <h5 class="card-title">Reviewed by {{ review.user.username }}</h5>
+                                        <h6 class="card-subtitle mb-3 text-muted">{{ review.date }}</h6>
+                                        <p class="card-text">{{ review.text }}</p>
+                                        {% if user.is_authenticated and user == review.user %}
+                                        <a href="" class="btn btn-primary me-2">Update</a>
+                                        <a href="" class="btn btn-danger">Delete</a>
+                                        {% endif %}
+
+                                    </li>
+                                {% endfor%}
+
+                             </ul>
+
 
                         </div>
                     </div>
