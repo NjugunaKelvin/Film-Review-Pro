@@ -1,48 +1,43 @@
 {% extends 'base.html' %}
 
 {% block content %}
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-                <div v-for="movie in movies" class="col">
-                    <div class="card">
-                        <img src="{{ movie.image.url }}" alt="">
-                        <div class="card-body">
-                            <h5 class="card-title fw-bold">{{ movie.title}}</h5>
-                            <p class="card-text">{{ movie.description }}</p>
-                            {% if movie.url %}
-                                <a href="{{ movie.url }}" class="btn btn-primary">Movie Link</a>
-                            {% endif %}
-                            <!-- authentication for add reviews -->
-                             {% if user.is_authenticated%}
-                                <a href="{% url 'createReview' movie.id %}" class="btn btn-primary">Add Review</a>
-                             {% endif %}
-                        </div>
-
-                        <div class="card-body">
-                             <hr>
-                             <h3>Reviews</h3>
-                             <ul class="list-group">
-                                {% for review in review %}
-                                    <li class="list-group-item pb-3 pt-3">
-                                        <h5 class="card-title">Reviewed by {{ review.user.username }}</h5>
-                                        <h6 class="card-subtitle mb-3 text-muted">{{ review.date }}</h6>
-                                        <p class="card-text">{{ review.text }}</p>
-                                        {% if user.is_authenticated and user == review.user %}
+    <div class="container bg-dark text-white py-4">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card bg-secondary text-white">
+                    <img src="{{ movie.image.url }}" class="card-img-top" alt="{{ movie.title }}">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">{{ movie.title }}</h5>
+                        <p class="card-text">{{ movie.description }}</p>
+                        {% if movie.url %}
+                            <a href="{{ movie.url }}" class="btn btn-primary">Movie Link</a>
+                        {% endif %}
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'createReview' movie.id %}" class="btn btn-primary">Add Review</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card bg-secondary text-white">
+                    <div class="card-body">
+                        <h3>Reviews</h3>
+                        <ul class="list-group">
+                            {% for review in review %}
+                                <li class="list-group-item bg-dark text-white pb-3 pt-3">
+                                    <h5 class="card-title">Reviewed by {{ review.user.username }}</h5>
+                                    <h6 class="card-subtitle mb-3 text-muted">{{ review.date }}</h6>
+                                    <p class="card-text">{{ review.text }}</p>
+                                    {% if user.is_authenticated and user == review.user %}
                                         <a href="{% url 'updatereview' review.id %}" class="btn btn-primary me-2">Update</a>
                                         <a href="{% url 'deletereview' review.id %}" class="btn btn-danger">Delete</a>
-                                        {% endif %}
-
-                                    </li>
-                                {% endfor %}
-                                
-
-                             </ul>
-
-                        </div>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
                     </div>
-
                 </div>
+            </div>
         </div>
-
-
+    </div>
 {% endblock content %}
-

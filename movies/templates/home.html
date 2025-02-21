@@ -1,38 +1,35 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form action="">
-    <div class="mb-3">
-        <label class="form-label" style="color: bisque;">Search for Movies</label>
-        <input type="text" name="searchMovie" class="form-contol">
-    </div>
-    <button class="btn btn-primary">
-        Search
-    </button>
-</form>
-
- <p style="color: bisque;">Searching for {{ searchTerm }}</p>
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            {% for movie in movies %}
-                <div v-for="movie in movies" class="col">
-                    <div class="card">
-                        <img src="{{ movie.image.url }}" alt="">
-                        <div style="background-color: black;" class="card-body">
-                            <a href="{% url 'detail' movie.id %}">
-                                <h5 class="card-title fw-bold">{{ movie.title}}</h5>
-                            </a>
-                            <p style="color: white;" class="card-text">{{ movie.description }}</p>
-                            {% if movie.url %}
-                                <a href="{{ movie.url }}" class="btn btn-primary">Movie Link</a>
-                            {% endif %}
-
-                        </div>
-                    </div>
-
-                </div>
-            {% endfor %}
+<div class="container">
+    <form action="" class="mb-4">
+        <div class="mb-3">
+            <label class="form-label text-light">Search for Movies</label>
+            <input type="text" name="searchMovie" class="form-control bg-dark text-light" placeholder="Enter movie name">
         </div>
+        <button class="btn btn-primary">
+            Search
+        </button>
+    </form>
 
-
+    <p class="text-light">Searching for {{ searchTerm }}</p>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for movie in movies %}
+            <div class="col">
+                <div class="card bg-dark text-light h-100">
+                    <img src="{{ movie.image.url }}" class="card-img-top" alt="{{ movie.title }}">
+                    <div class="card-body">
+                        <a href="{% url 'detail' movie.id %}" class="text-decoration-none text-light">
+                            <h5 class="card-title fw-bold">{{ movie.title }}</h5>
+                        </a>
+                        <p class="card-text">{{ movie.description }}</p>
+                        {% if movie.url %}
+                            <a href="{{ movie.url }}" class="btn btn-primary">Movie Link</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock content %}
-
