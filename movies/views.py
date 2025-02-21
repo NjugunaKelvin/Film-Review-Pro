@@ -3,6 +3,10 @@ from django.http import HttpResponse
 from .models import Movie, Review
 from .forms import ReviewForm
 
+# user authentication
+from django.contrib.auth.decorators import login_required
+
+@login_required
 def home(request):
     searchTerm = request.GET.get('searchMovie')
     if searchTerm:
@@ -12,16 +16,18 @@ def home(request):
     return render(request, 'home.html', 
         {'searchTerm' : searchTerm, 'movies' : movies})
 
-
+@login_required
 def about(request):
     return HttpResponse('<h1>About Page<h1>')
 
+@login_required
 def detail(request, movie_id):
     movie = get_object_or_404(Movie,pk=movie_id)
     reviews = Review.objects.filter(movie = movie)
     return render(request, 'detail.html',
         {'movie' : movie, 'review' : reviews})
 
+@login_required
 def createReview(request, movie_id):
     movie = get_object_or_404(Movie,pk=movie_id)
     if request.method == "GET":
@@ -38,7 +44,7 @@ def createReview(request, movie_id):
         except ValueError:
             return render(request, 'createReview.html', {'form' : ReviewForm(), 'error' : 'Bad data Passed in'})
         
-
+@login_required
 def updatereview(request, review_id):
     review = get_object_or_404(Review,pk=review_id,user = request.user)
     if request.method == 'GET':
@@ -54,8 +60,9 @@ def updatereview(request, review_id):
         
 
 
-
+@login_required
 def deletereview(request, review_id):
     review = get_object_or_404(Review,pk=review_id,user=request.user)
+    movie_id = review.movie.id
     review.delete()
-    return redirect('detail', review.movie.id)
+    return redirect('detail', movie_id)
