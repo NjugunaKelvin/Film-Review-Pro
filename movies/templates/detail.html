@@ -11,6 +11,11 @@
                             {% if movie.url %}
                                 <a href="{{ movie.url }}" class="btn btn-primary">Movie Link</a>
                             {% endif %}
+                            <!-- authentication for add reviews -->
+                             {% if user.is_authenticated%}
+                                <a href="{% url 'createReview' movie.id %}" class="btn btn-primary">Add Review</a>
+                             {% endif %}
+
 
                         </div>
                     </div>
