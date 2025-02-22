@@ -1,30 +1,35 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
-    <form action="" class="mb-4">
+<div class="container my-4">
+    <form action="" method="GET" class="mb-4">
         <div class="mb-3">
-            <label class="form-label text-light">Search for Movies</label>
-            <input type="text" name="searchMovie" class="form-control bg-dark text-light" placeholder="Enter movie name">
+            <label for="searchMovie" class="form-label text-light">Search for Movies</label>
+            <input type="text" id="searchMovie" name="searchMovie" class="form-control bg-dark text-light" placeholder="Enter movie name" aria-label="Search for movies">
         </div>
-        <button class="btn btn-primary">
+        <button type="submit" class="btn btn-primary">
             Search
         </button>
     </form>
 
-    <p class="text-light">Searching for {{ searchTerm }}</p>
+    {% if searchTerm %}
+        <p class="text-light">Searching for "{{ searchTerm }}"</p>
+    {% endif %}
+
     <div class="row row-cols-1 row-cols-md-3 g-4">
         {% for movie in movies %}
             <div class="col">
-                <div class="card bg-dark text-light h-100">
-                    <img src="{{ movie.image.url }}" class="card-img-top" alt="{{ movie.title }}">
+                <div class="card bg-dark text-light h-100" style="transition: transform 0.3s, box-shadow 0.3s; border: none;">
+                    <a href="{% url 'detail' movie.id %}">
+                        <img src="{{ movie.image.url }}" class="card-img-top" alt="{{ movie.title }}" style="object-fit: cover; height: 400px; transition: transform 0.3s;">
+                    </a>
                     <div class="card-body">
-                        <a href="{% url 'detail' movie.id %}" class="text-decoration-none text-light">
+                        <a href="{% url 'detail' movie.id %}" class="text-decoration-none" style="color: #ffcc00; transition: color 0.3s;">
                             <h5 class="card-title fw-bold">{{ movie.title }}</h5>
                         </a>
-                        <p class="card-text">{{ movie.description }}</p>
+                        <p class="card-text">{{ movie.description|truncatewords:20 }}</p>
                         {% if movie.url %}
-                            <a href="{{ movie.url }}" class="btn btn-primary">Movie Link</a>
+                            <a href="{{ movie.url }}" class="btn btn-success" target="_blank" rel="noopener noreferrer">Movie Link</a>
                         {% endif %}
                     </div>
                 </div>
@@ -32,4 +37,29 @@
         {% endfor %}
     </div>
 </div>
+
+<style>
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-img-top:hover {
+        transform: scale(1.1);
+    }
+
+    .card-title:hover {
+        color: #ff6600; /* Change to a different shade of orange on hover */
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+
+    .btn-success:hover {
+        background-color: #218838;
+        border-color: #1e7e34;
+    }
+</style>
 {% endblock content %}

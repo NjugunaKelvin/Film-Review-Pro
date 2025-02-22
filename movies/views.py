@@ -6,7 +6,6 @@ from .forms import ReviewForm
 # user authentication
 from django.contrib.auth.decorators import login_required
 
-@login_required
 def home(request):
     searchTerm = request.GET.get('searchMovie')
     if searchTerm:
