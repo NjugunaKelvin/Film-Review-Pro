@@ -2,16 +2,6 @@
 
 Welcome to **Film Review Pro**! This project is designed to provide a comprehensive platform for reviewing films. Whether you're a movie enthusiast or a casual viewer, Film Review Pro offers a user-friendly interface to read, write, and share film reviews.
 
-## 📋 Table of Contents
-
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Technologies Used](#technologies-used)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
-
 ## ✨ Features
 
 - **🔒 User Authentication:** Secure login and registration system.
