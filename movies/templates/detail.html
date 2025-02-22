@@ -1,43 +1,75 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="container bg-dark text-white py-4">
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="card bg-secondary text-white">
-                    <img src="{{ movie.image.url }}" class="card-img-top" alt="{{ movie.title }}">
-                    <div class="card-body">
-                        <h5 class="card-title fw-bold">{{ movie.title }}</h5>
-                        <p class="card-text">{{ movie.description }}</p>
-                        {% if movie.url %}
-                            <a href="{{ movie.url }}" class="btn btn-primary">Movie Link</a>
-                        {% endif %}
-                        {% if user.is_authenticated %}
-                            <a href="{% url 'createReview' movie.id %}" class="btn btn-primary">Add Review</a>
-                        {% endif %}
-                    </div>
+<div class="container bg-dark text-white py-4">
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card bg-dark text-white border-0">
+                <img src="{{ movie.image.url }}" class="card-img-top" alt="{{ movie.title }}" style="object-fit: cover; height: 300px;">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold" style="color: #ffcc00;">{{ movie.title }}</h5>
+                    <p class="card-text">{{ movie.description }}</p>
+                    {% if movie.url %}
+                        <a href="{{ movie.url }}" class="btn btn-outline-warning">Movie Link</a>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'createReview' movie.id %}" class="btn btn-outline-info">Add Review</a>
+                    {% endif %}
                 </div>
             </div>
-            <div class="col-md-8">
-                <div class="card bg-secondary text-white">
-                    <div class="card-body">
-                        <h3>Reviews</h3>
-                        <ul class="list-group">
-                            {% for review in review %}
-                                <li class="list-group-item bg-dark text-white pb-3 pt-3">
-                                    <h5 class="card-title">Reviewed by {{ review.user.username }}</h5>
-                                    <h6 class="card-subtitle mb-3 text-muted">{{ review.date }}</h6>
-                                    <p class="card-text">{{ review.text }}</p>
-                                    {% if user.is_authenticated and user == review.user %}
-                                        <a href="{% url 'updatereview' review.id %}" class="btn btn-primary me-2">Update</a>
-                                        <a href="{% url 'deletereview' review.id %}" class="btn btn-danger">Delete</a>
-                                    {% endif %}
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card bg-dark text-white border-0">
+                <div class="card-body">
+                    <h3 style="color: #ffcc00;">Reviews</h3>
+                    <ul class="list-group list-group-flush">
+                        {% for review in review %}
+                            <li class="list-group-item bg-dark text-white border-0">
+                                <h5 class="card-title">Reviewed by {{ review.user.username }}</h5>
+                                <h6 class="card-subtitle mb-3 text-muted">{{ review.date }}</h6>
+                                <p class="card-text">{{ review.text }}</p>
+                                {% if user.is_authenticated and user == review.user %}
+                                    <a href="{% url 'updatereview' review.id %}" class="btn btn-outline-info me-2">Update</a>
+                                    <a href="{% url 'deletereview' review.id %}" class="btn btn-outline-danger">Delete</a>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+<style>
+    .btn-outline-warning {
+        color: #ffc107;
+        border-color: #ffc107;
+    }
+
+    .btn-outline-warning:hover {
+        background-color: #ffc107;
+        color: #000;
+    }
+
+    .btn-outline-info {
+        color: #17a2b8;
+        border-color: #17a2b8;
+    }
+
+    .btn-outline-info:hover {
+        background-color: #17a2b8;
+        color: #fff;
+    }
+
+    .btn-outline-danger {
+        color: #dc3545;
+        border-color: #dc3545;
+    }
+
+    .btn-outline-danger:hover {
+        background-color: #dc3545;
+        color: #fff;
+    }
+</style>
 {% endblock content %}
