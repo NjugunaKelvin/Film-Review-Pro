@@ -113,8 +113,11 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# STATICFILES_DIRS = [
+#     BASE_DIR / 'FILM_REVIEW/static/',
+# ]
 STATICFILES_DIRS = [
-    BASE_DIR / 'FILM_REVIEW/static/',
+    os.path.join(BASE_DIR, 'FILM_REVIEW/static')
 ]
 
 # Default primary key field type
