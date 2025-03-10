@@ -20,12 +20,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     "localhost",
-    "film-review-pro.onrender.com",
+    "film-viewer.onrender.com",
     "127.0.0.1"
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://film-review-pro.onrender.com"
+    "https://film-viewer.onrender.com"
 ]
 
 
